@@ -1,15 +1,18 @@
 {% extends 'main.html' %}
 {% block title %}{{ title }}{% endblock %}
 {% block container %}
-<h1>{{title}}</h1>
+<p class="h1">{{title}}</p>
 {% if tareas %}
-<ul class="Tareas">
+<div class="list-group">
+    <a class="list-group-item list-group-item-action active" href="#" style="display: None;"></a>
     {% for tarea in tareas %}
-        <li><a href="ver/{{tarea.pk}}"> {{tarea}}</a> - <a href="borrar/{{tarea.pk}}">Completada</a></li>
+        <a class="list-group-item list-group-item-action" href="{% url 'ver' tarea.pk %}">{{tarea}} <br><small>Vence: {% if tarea.vencimiento %}{{tarea.vencimiento}}{% else %}Sin vigencia.{% endif %}</small></a>
     {% endfor %}
-</ul>
+</div>
 {% else %}
 <p>Sin tareas</p>
 {% endif %}
-<a href="{% url 'nuevo' %}">Nueva tarea</a>
+<p>
+    <a href="{% url 'nuevo' %}"><button type="button" class="btn btn-primary">Nueva Tarea</button></a>
+</p>
 {% endblock %}

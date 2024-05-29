@@ -9,8 +9,22 @@ class NuevaTareaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.add_input(Submit('', 'Guardar'))
+        self.helper.add_input(Submit('guardar', 'Guardar'))
 
+    class Meta:
+        model = Tarea
+        fields = ['tarea', 'vencimiento']
+        widgets = {
+            'vencimiento': forms.TextInput(attrs={'type': 'datetime-local'}),
+        }
+
+
+class EditarTareaForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('', 'Guardar', css_class='btn-success'))
+        self.helper.add_input(Submit('borrar', 'Eliminar', css_class='btn-danger'))
     class Meta:
         model = Tarea
         fields = ['tarea', 'vencimiento']
@@ -23,7 +37,7 @@ class BorrarTareaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.add_input(Submit('', 'Aceptar'))
+        self.helper.add_input(Submit('', 'Eliminar', css_class='btn-danger'))
 
     class Meta:
         model = Tarea
