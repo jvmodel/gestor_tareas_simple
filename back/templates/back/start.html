@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block container %}
+<h1>{{title}}</h1>
+{% if tareas %}
+<ul class="Tareas">
+    {% for tarea in tareas %}
+        <li><a href="ver/{{tarea.pk}}"> {{tarea}}</a> - <a href="borrar/{{tarea.pk}}">Completada</a></li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Sin tareas</p>
+{% endif %}
+<a href="{% url 'nuevo' %}">Nueva tarea</a>
+{% endblock %}
